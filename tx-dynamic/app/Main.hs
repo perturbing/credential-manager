@@ -1,8 +1,11 @@
+{-# OPTIONS_GHC -Wno-deferred-out-of-scope-variables #-}
+
 module Main where
 
 import Cardano.Api (
   AsType (..),
   ConsensusModeParams,
+  ConwayEra (..),
   ConwayEraOnwards (..),
   Doc,
   Error (..),
@@ -45,6 +48,7 @@ import Cardano.Api (
   serialiseToRawBytesHexText,
   writeTxFileTextEnvelopeCddl,
  )
+import Cardano.Api.Experimental as Exp
 import Cardano.Api.Ledger (Coin)
 import Cardano.CLI.Environment (EnvCli, getEnvCli)
 import Cardano.CLI.EraBased.Commands.Transaction (TransactionBuildCmdArgs (..))
@@ -777,7 +781,7 @@ callTransactionBuild ConwayEraOnwardsConway groups TransactionBuildArgs{..} = do
   unwrapOrCrash renderTxCmdError =<< runExceptT do
     runTransactionBuildCmd
       TransactionBuildCmdArgs
-        { eon = ShelleyBasedEraConway
+        { currentEra = Exp.ConwayEra
         , requiredSigners = RequiredSignerHash <$> nub (groupMembers =<< groups)
         , buildOutputOptions = OutputTxBodyOnly $ File path
         , ..

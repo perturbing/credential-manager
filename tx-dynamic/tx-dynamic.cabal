@@ -87,7 +87,7 @@ executable tx-bundle
     , base
     , base16
     , binary
-    , cardano-api
+    , cardano-api ^>=10.1
     , cardano-cli
     , cardano-crypto-class
     , containers
